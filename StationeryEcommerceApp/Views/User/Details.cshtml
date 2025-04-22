@@ -1,0 +1,17 @@
+﻿
+@model StationeryEcommerceApp.Models.User
+@{
+    ViewBag.Title = "User Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>User Details</h2>
+
+<p><strong>ID:</strong> @Model.UserID</p>
+<p><strong>Name:</strong> @Model.FirstName</p>
+<p><strong>Email:</strong> @Model.Email</p>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserID }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</p>

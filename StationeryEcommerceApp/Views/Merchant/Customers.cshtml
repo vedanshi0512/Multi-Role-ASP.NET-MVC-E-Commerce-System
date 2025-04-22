@@ -1,0 +1,30 @@
+﻿@model List<StationeryEcommerceApp.Models.User>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+
+
+<h2>My Customers</h2>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.FirstName</td>
+                <td>@customer.Email</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+

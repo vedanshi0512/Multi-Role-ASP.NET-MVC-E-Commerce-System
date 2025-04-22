@@ -1,0 +1,175 @@
+﻿@model IEnumerable<StationeryEcommerceApp.Models.Product> 
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<a href="/Cart/Index" class="btn btn-primary">Go to Cart</a>
+
+<h2 class="text-center mt-3">Our Products</h2>
+
+<!-- Product Listing -->
+<div class="container mt-4">
+    <div class="row">
+
+        @foreach (var product in Model)
+        {
+
+            // Check if product exists in Session["Cart"]
+            bool isInCart = false;
+            var cart = Session["Cart"] as List<StationeryEcommerceApp.Models.CartItem>;
+            if (cart != null && cart.Any(item => item.ProductID == product.ProductID))
+            {
+                isInCart = true;
+            }
+           
+
+                <div class="col-md-4 mb-4">
+                    <div class="card product-card">
+                        <img src="data:image/png;base64,@product.ImageUrl" class="card-img-top product-image" alt="@product.Name">
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">₹@product.Price</p>
+
+                            <!-- View Details & Add to Cart (Side-by-Side) -->
+                            <div class="d-flex justify-content-between">
+                                <a href="@Url.Action("Details", "Product", new { id = product.ProductID })" class="btn btn-outline-primary btn-sm">View Details</a>
+
+                                @if (isInCart)
+                                {
+                                    <button class="btn btn-success" disabled>Added</button>
+                                }
+                                else
+                                {
+                                    <form method="post" action="@Url.Action("AddToCart", "Cart")" class="add-to-cart-form">
+                                        <input type="hidden" name="id" value="@product.ProductID" />
+                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                    </form>
+                                }
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+<!-- Styling -->
+<style>
+    .product-card {
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .product-image {
+        height: 250px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .quantity-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .quantity-text {
+        font-weight: bold;
+        font-size: 16px;
+    }
+</style>
+
+<!-- AJAX Script for Add to Cart -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $(".add-to-cart").click(function () {
+        var productId = $(this).data("id");
+        var button = $(this);
+        $.ajax({
+            type: "POST",
+            url: "/Cart/AddToCart", // Corrected URL
+            data: { id: productId }, // Corrected parameter name
+            success: function (response) {
+                if (response.success) {
+                    button.hide();  // Hide Add to Cart button
+                    $("#quantity-" + productId).show();  // Show quantity controls
+                }
+            },
+            error: function (xhr) {
+                console.log("Error:", xhr.responseText);
+            }
+        });
+    });
+
+
+        $(".increase-quantity").click(function () {
+    var productId = $(this).data("id");
+    var quantityInput = $(this).siblings(".quantity-input");
+    var newQuantity = parseInt(quantityInput.val()) + 1;
+
+    $.ajax({
+        url: "/Cart/UpdateCart",
+        type: "POST",
+        data: { productId: productId, quantity: newQuantity },
+        success: function (response) {
+            if (response.success) {
+                quantityInput.val(newQuantity);
+                $("#cart-count").text(response.cartCount);
+                $("#total-price-" + productId).text(response.total.toFixed(2));
+            }
+        }
+    });
+});
+
+
+        $(".decrease-qty").click(function () {
+            var productId = $(this).data("id");
+            var quantityElement = $("#qty-" + productId);
+            var quantity = Math.max(1, parseInt(quantityElement.text()) - 1);
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateCart", "Cart")",
+                data: { productId: productId, quantity: quantity },
+                success: function (response) {
+                    if (response.success) {
+                        quantityElement.text(quantity);
+                    }
+                }
+            });
+        });
+    });
+</script> 
+

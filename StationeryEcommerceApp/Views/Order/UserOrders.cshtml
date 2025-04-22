@@ -1,0 +1,28 @@
+﻿@model IEnumerable<StationeryEcommerceApp.Models.Order>
+
+@{
+    ViewBag.Title = "UserOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>UserOrders</h2>
+
+
+<table class="table">
+    <tr>
+        <th>Order ID</th>
+        <th>Order Date</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.OrderID</td>
+            <td>@order.OrderDate</td>
+            <td>₹@order.TotalAmount</td>
+            <td><span class="badge badge-info">@order.Status</span></td>
+        </tr>
+    }
+</table>

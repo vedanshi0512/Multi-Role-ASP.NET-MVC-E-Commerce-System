@@ -1,0 +1,43 @@
+﻿@model List<StationeryEcommerceApp.Models.Product>
+
+@{
+    ViewBag.Title = "ProductsByCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products in @ViewBag.Category</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="text-danger">@ViewBag.Message</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price</td>
+                    <td>@product.StockQuantity</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Product", new { id = product.ProductID })" class="btn btn-primary">
+                            View Details
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

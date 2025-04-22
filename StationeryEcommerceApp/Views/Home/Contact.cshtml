@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">📞 Contact Us</h1>
+
+    <div class="row">
+        <!-- Contact Information -->
+        <div class="col-md-6">
+            <div class="contact-box p-4 shadow-sm">
+                <h3>📍 Get in Touch</h3>
+                <p><strong>Email:</strong> support@stationerystore.com</p>
+                <p><strong>Phone:</strong> +123 456 7890</p>
+                <p><strong>Address:</strong> 123, Main Street, Stationery City, CA</p>
+            </div>
+        </div>
+
+        <!-- Dummy Contact Form -->
+        <div class="col-md-6">
+            <div class="contact-box p-4 shadow-sm">
+                <h3>✉️ Send Us a Message</h3>
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Write your message..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS Styling -->
+<style>
+    .contact-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .form-control {
+        border-radius: 6px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+</style>

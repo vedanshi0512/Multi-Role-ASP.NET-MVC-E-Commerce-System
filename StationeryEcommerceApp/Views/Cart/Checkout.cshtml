@@ -1,0 +1,118 @@
+﻿@model List<StationeryEcommerceApp.Models.Address>
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-primary">Checkout</h2>
+        <hr>
+
+        <!-- Payment Method Section -->
+        <div class="mb-4">
+            <h5 class="fw-bold">Choose Payment Method:</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="payment" value="COD" id="cod">
+                <label class="form-check-label fw-bold" for="cod">Cash on Delivery</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="payment" value="UPI" id="upi">
+                <label class="form-check-label fw-bold" for="upi">Pay via UPI</label>
+            </div>
+        </div>
+
+        <!-- UPI QR Code (Initially Hidden) -->
+        <div id="upiQR" class="text-center mb-4" style="display:none;">
+            <img src="~/Content/Images/upi-qr.png" alt="Scan to Pay" class="img-fluid" width="200">
+        </div>
+
+        <!-- Address Selection -->
+        <form method="post" action="@Url.Action("ConfirmPayment", "Cart")">
+            <div class="mb-3">
+                <label class="fw-bold">Select Address:</label>
+                <select class="form-select" name="SelectedAddressID" id="addressDropdown">
+                    @if (ViewBag.Addresses != null && ViewBag.Addresses.Count > 0)
+                    {
+                        foreach (var address in ViewBag.Addresses)
+                        {
+                            <option value="@address.AddressID">@address.FullAddress, @address.City</option>
+                        }
+                    }
+                    else
+                    {
+                        <option disabled selected>No saved addresses. Please add a new address.</option>
+                    }
+                    <option value="0" class="text-primary">+ Add New Address</option>
+                </select>
+            </div>
+
+            <!-- New Address Fields (Initially Hidden) -->
+            <div id="newAddressForm" class="border p-3 rounded bg-light" style="display: none;">
+                <h5 class="fw-bold text-primary">Enter New Address:</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="fw-bold">Full Address</label>
+                        <input type="text" class="form-control" name="FullAddress" placeholder="Full Address" id="FullAddress">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="fw-bold">City</label>
+                        <input type="text" class="form-control" name="City" placeholder="City" id="City">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <label class="fw-bold">State</label>
+                        <input type="text" class="form-control" name="State" placeholder="State" id="State">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Postal Code</label>
+                        <input type="text" class="form-control" name="PostalCode" placeholder="Postal Code" id="PostalCode">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fw-bold">Country</label>
+                        <input type="text" class="form-control" name="Country" placeholder="Country" id="Country">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proceed Button -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary w-100">Proceed to Payment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for Dynamic Functionality -->
+<script>
+    document.getElementById("upi").addEventListener("change", function () {
+        document.getElementById("upiQR").style.display = "block";
+    });
+
+    document.getElementById("cod").addEventListener("change", function () {
+        document.getElementById("upiQR").style.display = "none";
+    });
+
+    document.getElementById("addressDropdown").addEventListener("change", function () {
+        let newAddressForm = document.getElementById("newAddressForm");
+
+        if (this.value === "0") {
+            newAddressForm.style.display = "block";
+            document.getElementById("FullAddress").setAttribute("required", "required");
+            document.getElementById("City").setAttribute("required", "required");
+            document.getElementById("State").setAttribute("required", "required");
+            document.getElementById("PostalCode").setAttribute("required", "required");
+            document.getElementById("Country").setAttribute("required", "required");
+        } else {
+            newAddressForm.style.display = "none";
+            document.getElementById("FullAddress").removeAttribute("required");
+            document.getElementById("City").removeAttribute("required");
+            document.getElementById("State").removeAttribute("required");
+            document.getElementById("PostalCode").removeAttribute("required");
+            document.getElementById("Country").removeAttribute("required");
+        }
+    });
+</script>

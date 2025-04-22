@@ -1,0 +1,81 @@
+﻿@*@@model IEnumerable<StationeryEcommerceApp.Models.Product>
+    @model List<StationeryEcommerceApp.Models.Product>
+
+
+
+    @{
+        ViewBag.Title = "ManageProducts";
+        Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+    }
+
+    <h2>Manage Your Products</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>$@product.Price</td>
+                    <td>
+                        <img src="data:image/png;base64,@product.ImageUrl" width="50" height="50" />
+                    </td>
+                    <td>
+                        <a href="@Url.Action("DeleteProduct", "Merchant", new { id = product.ProductID })" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("Create", "Product")" class="btn btn-primary">Add New Product</a>
+*@
+
+@model IEnumerable<StationeryEcommerceApp.Models.Product>
+
+@{
+    ViewBag.Title = "MerchantView";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+
+<h2>Manage Products</h2>
+
+<a href="@Url.Action("Create","Product")" class="btn btn-success">Add Product</a>
+<br />
+<br />
+
+<table class="table table-bordered">
+    <tr>
+        @*<th>Image</th>*@
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var product in Model)
+    {
+        <tr>
+            @*<td><img src="@product.ImageUrl" width="50" height="50" /></td>*@
+            <td>@product.Name</td>
+            <td>@product.Category</td>
+            <td>@product.Price</td>
+            <td>@product.StockQuantity</td>
+            <td>
+                <a href="@Url.Action("Edit","Product", new { id = product.ProductID })" class="btn btn-warning">Edit</a>
+                <a href="@Url.Action("Delete","Product", new { id = product.ProductID })" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+

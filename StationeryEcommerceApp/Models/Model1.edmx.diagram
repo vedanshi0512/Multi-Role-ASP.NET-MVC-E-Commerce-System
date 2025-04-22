@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0a2f58ba756e4f788041ba4cd7767ee3" Name="Diagram1">
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.OrderDetail" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.Order" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.Payment" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.Product" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.User" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK__OrderDeta__Order__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK__OrderDeta__Produ__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK__Orders__UserID__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK__Payments__OrderI__47DBAE45" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.Merchant" Width="1.5" PointX="0.75" PointY="8" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK_Products_Merchants" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK_OrderDetails_Merchant" />
+        <EntityTypeShape EntityType="StationeryEcommerceDBModel.Address" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK__Addresses__UserI__75A278F5" />
+        <AssociationConnector Association="StationeryEcommerceDBModel.FK_Orders_Addresses" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

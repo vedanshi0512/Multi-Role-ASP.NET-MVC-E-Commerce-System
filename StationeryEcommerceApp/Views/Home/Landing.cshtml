@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Landing";
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+
+<div class="container text-center mt-5">
+<h1 class="mb-4">Welcome to Stationery Ecommerce</h1>
+<p class="lead">Please select your login option:</p>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <a href="@Url.Action("Login", "User")" class="btn btn-primary btn-lg w-100">
+            👤 User Login
+        </a>
+    </div>
+    <div class="col-md-6">
+        <a href="@Url.Action("Login", "Merchant")" class="btn btn-success btn-lg w-100">
+            🏪 Merchant Login
+        </a>
+    </div>
+</div>
+</div>
+

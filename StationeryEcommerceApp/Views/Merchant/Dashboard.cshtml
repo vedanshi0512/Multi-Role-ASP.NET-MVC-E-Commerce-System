@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+
+<h2>Welcome, @Session["Name"]</h2>
+
+<div>
+    <a href="@Url.Action("ManageProducts", "Merchant")" class="btn btn-primary">Manage Products</a>
+    <a href="@Url.Action("Customers", "Merchant")" class="btn btn-success">View Customers</a>
+    <a href="@Url.Action("MerchantOrders", "Order")"  class="btn btn-dark">View Orders</a>
+    @*<a href="@Url.Action("Logout", "Merchant")" class="btn btn-danger">Logout</a>*@
+</div>
+
+
+@*<!--<div class="container mt-5">
+    <h2>Welcome, @Session["MerchantName"]</h2>
+    <a href="@Url.Action("AddProduct", "Merchant")" class="btn btn-primary">➕ Add Product</a>-->
+@*<a href="@Url.Action("Logout", "Merchant")" class="btn btn-danger">Logout</a>
+
+<!--<h3 class="mt-4">Your Products</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>-->
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Category</td>
+                    <td>$@product.Price</td>
+                    <td>
+                        <a href="@Url.Action("DeleteProduct", "Merchant", new { id = product.ProductID })" class="btn btn-danger">🗑 Delete</a>
+                    </td>
+                </tr>
+            }
+        <!--</tbody>
+    </table>
+</div>-->
+*@

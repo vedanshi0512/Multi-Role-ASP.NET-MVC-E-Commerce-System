@@ -1,0 +1,30 @@
+﻿@model List<StationeryEcommerceApp.Models.Order>
+
+@{
+    ViewBag.Title = "OrderHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Order History</h2>
+<table class="table">
+    <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th>Total</th>
+        @*<th>Action</th>*@
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.OrderID</td>
+            <td>@order.OrderDate</td>
+            <td>@order.Status</td>
+            <td>₹@order.TotalAmount</td>
+            @*<td><a href="@Url.Action("TrackOrder", "User", new { id = order.OrderID })">Track</a></td>*@
+        </tr>
+    }
+</table>
+
+

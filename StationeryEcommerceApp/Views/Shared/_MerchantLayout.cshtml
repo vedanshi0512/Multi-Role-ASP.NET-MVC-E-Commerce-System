@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Merchant Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet">
+
+    <!-- jQuery & Bootstrap JS -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Full height layout */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Fixed Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            flex: 1;
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Action("Dashboard", "Merchant")">Merchant Dashboard</a>
+
+            <!-- Navbar Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("ManageProducts", "Merchant")">Manage Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("MerchantOrders", "Order")">Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Customers", "Merchant")">Customers</a></li>
+                </ul>
+
+                <div class="mx-auto text-white">
+                    @if (Session["MerchantID"] != null)
+                    {
+                        <span>Welcome, @Session["Name"]</span>
+                    }
+                </div>
+
+                <!-- Logout Button -->
+                @if (Session["MerchantID"] != null)
+                {
+                    <a href="@Url.Action("Logout", "Merchant")" class="btn btn-danger">Logout</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Merchant")" class="btn btn-primary">Login</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper container-fluid">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year - My E-Commerce</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+</html>

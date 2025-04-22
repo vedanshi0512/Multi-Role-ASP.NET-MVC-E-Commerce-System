@@ -1,0 +1,60 @@
+﻿
+@model List<StationeryEcommerceApp.Models.CartItem>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Cart</h2>
+
+@if (Model.Count == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <tr>
+            @*<th>Image</th>*@
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td><img src="@item.ImageUrl" width="50" height="50" /></td>*@
+                <td>@item.Name</td>
+                <td>@item.Category</td>
+                <td>₹@item.Price</td>
+                <td>
+                    <form action="@Url.Action("UpdateCart", "Cart")" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="@item.ProductID" />
+                        <button type="submit" name="quantityChange" value="-1" class="btn btn-sm btn-outline-secondary">-</button>
+                    </form>
+
+                    <span class="mx-2">@item.Quantity</span>
+
+                    <form action="@Url.Action("UpdateCart", "Cart")" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="@item.ProductID" />
+                        <button type="submit" name="quantityChange" value="1" class="btn btn-sm btn-outline-secondary">+</button>
+                    </form>
+                </td>
+
+                <td>$@(item.Price * item.Quantity)</td>
+                <td>
+                    <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.ProductID })" class="btn btn-sm btn-danger">Remove</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h4>Total Price: <b>$@ViewBag.Total</b></h4>
+
+    <a href="@Url.Action("ClearCart", "Cart")" class="btn btn-warning">Clear Cart</a>
+    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">Proceed to Checkout</a>
+}

@@ -1,0 +1,49 @@
+﻿@model StationeryEcommerceApp.Models.Product
+
+@{
+    ViewBag.Title = "Product Details";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <div class="row">
+            <!-- Left Side: Product Image -->
+            <div class="col-md-5 text-center">
+                <img src="data:image/png;base64,@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded product-img" />
+            </div>
+
+            <!-- Right Side: Product Details -->
+            <div class="col-md-7">
+                <h2 class="text-primary">@Model.Name</h2>
+                <hr>
+                <p><strong>Description:</strong> @Model.Description</p>
+                <p><strong>Price:</strong> <span class="text-success">₹@Model.Price</span></p>
+                <p>
+                    <strong>Stock:</strong> <span class="badge @(Model.StockQuantity > 0 ? "bg-success" : "bg-danger")">
+                        @(Model.StockQuantity > 0 ? "In Stock" : "Out of Stock")
+                    </span>
+                </p>
+                <p><strong>Category:</strong> <span class="badge bg-secondary">@Model.Category</span></p>
+
+                <!-- Buttons -->
+                <div class="mt-4">
+                    <a href="@Url.Action("Index")" class="btn btn-outline-dark">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Styling -->
+<style>
+    .product-img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+</style>

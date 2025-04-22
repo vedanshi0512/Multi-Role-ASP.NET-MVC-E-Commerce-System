@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - My E-Commerce</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet">
+
+    <!-- jQuery & Bootstrap JS -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    <style>
+        /* Make the page take full height */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar should always be at the top */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+            height: 56px; /* Standard Bootstrap navbar height */
+            line-height: 56px; /* Center align text vertically */
+        }
+
+        /* Push main content below navbar */
+        .content-wrapper {
+            flex: 1;
+            margin-top: 60px; /* Adjust for navbar height */
+            padding: 20px;
+        }
+
+        /* Footer should always be at the bottom */
+        .footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Action("Landing", "Home")">My E-Commerce</a>
+
+            <!-- Navbar Toggler for Mobile View -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Categories", "Product")">Categories</a></li>
+                    @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Brands")">Brands</a></li>*@
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index", "Product")">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("OrderHistory", "User")">My Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("UserProfile", "User")">Profile</a></li>
+
+                </ul>
+
+                <!-- Login/Register Button -->
+                <!--<a href="@Url.Action("Login", "User")" class="btn btn-primary">Login / Register</a>-->
+
+                <div class="mx-auto text-white">
+                    @if (Session["UserID"] != null)
+                    {
+                        @*<p>Welcome, User!</p>*@
+
+
+                        <span>Welcome, @Session["username"]</span>
+                    }
+                </div>
+
+                <!-- Cart Button -->
+                @*<a href="@Url.Action("Index", "Cart")" class="btn btn-warning">
+                🛒 Cart <span class="badge bg-light text-dark">0</span>
+            </a>*@
+                <a href="/Cart/Index" class="btn btn-warning">
+                    🛒 Cart <span class="badge bg-light text-dark"></span>
+                </a>
+
+                @if (Session["UserID"] != null)
+                {
+                    <!-- User Logged In -->
+
+                    <a href="@Url.Action("Logout", "User")" class="btn btn-danger">Logout</a>
+                }
+                else
+                {
+                    <!-- Not Logged In -->
+                    <a href="@Url.Action("Login", "User")" class="btn btn-primary">Login / Register</a>
+                }
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper container-fluid">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year - My E-Commerce</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get("/Cart/CartCount", function (response) {
+                $("#cart-count").text(response.cartCount);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+
+<div class="container mt-5">
+    <h2 class="text-center">Merchant Login</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Error))
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    @using (Html.BeginForm("Login", "Merchant", FormMethod.Post))
+    {
+        <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input type="email" name="Email" class="form-control" required />
+        </div>
+    <div class="mb-3">
+        <label class="form-label">Password:</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success w-100">Login</button>
+    }
+    <br />
+
+    <p>@Html.ActionLink("Register Here", "Register")</p>
+</div>
+

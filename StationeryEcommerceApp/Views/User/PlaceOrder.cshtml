@@ -1,0 +1,25 @@
+﻿@model StationeryEcommerceApp.Models.Product
+
+@{
+    ViewBag.Title = "PlaceOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Order Product</h2>
+
+@using (Html.BeginForm("PlaceOrder", "User", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.ProductID)
+
+    <p><strong>Product Name:</strong> @Model.Name</p>
+    <p><strong>Price:</strong> $@Model.Price</p>
+
+    <div class="form-group">
+        <label>Quantity</label>
+        <input type="number" name="quantity" class="form-control" required min="1" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Place Order</button>
+}
+

@@ -1,0 +1,46 @@
+﻿@model StationeryEcommerceApp.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+<h2>Create New Product</h2>
+
+@using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label>Name:</label>
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Description:</label>
+            @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Price:</label>
+            @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Stock Quantity:</label>
+            @Html.TextBoxFor(model => model.StockQuantity, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label>Category:</label>
+            @Html.TextBoxFor(model => model.Category, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Product Image</label>
+            <input type="file" name="ImageUrl" class="form-control" />
+        </div>
+        <br />
+        <button type="submit" class="btn btn-success">Create</button>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+}

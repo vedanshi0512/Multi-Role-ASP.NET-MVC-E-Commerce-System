@@ -1,0 +1,42 @@
+﻿@model IEnumerable<StationeryEcommerceApp.Models.Order>
+
+@{
+    ViewBag.Title = "MerchantOrders";
+    Layout = "~/Views/Shared/_MerchantLayout.cshtml";
+}
+
+<h2>Merchant Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Order Date</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.OrderID</td>
+            <td>@order.User.FirstName @order.User.LastName</td>
+            <td>@order.OrderDate</td>
+            <td>₹@order.TotalAmount</td>
+            <td>
+                <form method="post" action="@Url.Action("UpdateOrderStatus", "Order")">
+                    <input type="hidden" name="orderId" value="@order.OrderID" />
+                    <select name="status" class="form-control">
+                        <option value="Pending" @(order.Status == "Pending" ? "selected" : "")>Pending</option>
+                        <option value="Shipped" @(order.Status == "Shipped" ? "selected" : "")>Shipped</option>
+                        <option value="Delivered" @(order.Status == "Delivered" ? "selected" : "")>Delivered</option>
+                        <option value="Cancelled" @(order.Status == "Cancelled" ? "selected" : "")>Cancelled</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
